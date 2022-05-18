@@ -9,16 +9,6 @@ const { redirect } = require("express/lib/response");
 //const { parse } = require('querystring');
 const chromium = require('chrome-aws-lambda');
 
-process.env.PUPPETEER_EXECUTABLE_PATH = chromium.executablePath;
-
-/*const browser = chromium.puppeteer.launch({
-    args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
-    defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath,
-    headless: true,
-    ignoreHTTPSErrors: true,
-});*/
-
 async function getData() {
     const response = await fetch('https://www.bangchak.co.th/th/oilprice/historical');
     const body = await response.text();
@@ -93,6 +83,17 @@ function sparray(wow) {
 });*/
 
 router.get('/', async (req, res) => {
+
+    const browser = await chromium.puppeteer.launch({
+        args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath,
+        headless: true,
+        ignoreHTTPSErrors: true,
+    });
+
+    process.env.PUPPETEER_EXECUTABLE_PATH = await chromium.executablePath;
+
     await new Pageres({ format: 'png', delay: 2, filename: 'oilprice', launchOptions: {executablePath: await chromium.executablePath, args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'] } })
         .src('https://boyphongsakorn.github.io/thaioilpriceapi/', ['1000x1000'])
         .dest(__dirname)
