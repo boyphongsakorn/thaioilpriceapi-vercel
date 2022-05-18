@@ -9,13 +9,13 @@ const { redirect } = require("express/lib/response");
 //const { parse } = require('querystring');
 const chromium = require('chrome-aws-lambda');
 
-const browser = await chromium.puppeteer.launch({
+/*const browser = chromium.puppeteer.launch({
     args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
     defaultViewport: chromium.defaultViewport,
     executablePath: await chromium.executablePath,
     headless: true,
     ignoreHTTPSErrors: true,
-});
+});*/
 
 async function getData() {
     const response = await fetch('https://www.bangchak.co.th/th/oilprice/historical');
@@ -91,7 +91,7 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/image', async (req, res) => {
-    await new Pageres({ format: 'png', delay: 2, filename: 'oilprice', launchOptions: { args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'] } })
+    await new Pageres({ format: 'png', delay: 2, filename: 'oilprice', launchOptions: {executablePath: await chromium.executablePath, args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'] } })
         .src('https://boyphongsakorn.github.io/thaioilpriceapi/', ['1000x1000'])
         .dest(__dirname)
         .run();
