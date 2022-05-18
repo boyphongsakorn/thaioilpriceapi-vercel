@@ -167,7 +167,7 @@ router.get('/', async (req, res) => {
             data[2].pop();
         }
 
-        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
         //res.write(JSON.stringify(data));
         res.end(JSON.stringify(data));
 });
