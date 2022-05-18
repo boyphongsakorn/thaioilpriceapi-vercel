@@ -2,11 +2,20 @@ const express = require("express");
 const router = express.Router();
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const cheerio = require('cheerio');
-var http = require('http');
+//var http = require('http');
 var fs = require('fs');
 const Pageres = require('pageres');
 const { redirect } = require("express/lib/response");
 //const { parse } = require('querystring');
+const chromium = require('chrome-aws-lambda');
+
+const browser = await chromium.puppeteer.launch({
+    args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath,
+    headless: true,
+    ignoreHTTPSErrors: true,
+});
 
 async function getData() {
     const response = await fetch('https://www.bangchak.co.th/th/oilprice/historical');
