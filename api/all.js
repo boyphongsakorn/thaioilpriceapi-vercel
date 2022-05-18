@@ -9,6 +9,8 @@ const { redirect } = require("express/lib/response");
 //const { parse } = require('querystring');
 const chromium = require('chrome-aws-lambda');
 
+process.env.PUPPETEER_EXECUTABLE_PATH = chromium.executablePath;
+
 /*const browser = chromium.puppeteer.launch({
     args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
     defaultViewport: chromium.defaultViewport,
