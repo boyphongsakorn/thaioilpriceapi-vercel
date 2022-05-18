@@ -9,6 +9,8 @@ const { redirect } = require("express/lib/response");
 //const { parse } = require('querystring');
 const chromium = require('chrome-aws-lambda');
 
+process.env.TZ = 'Asia/bangkok';
+
 async function getData() {
     const response = await fetch('https://www.bangchak.co.th/th/oilprice/historical');
     const body = await response.text();
