@@ -89,10 +89,10 @@ function sparray(wow) {
     return arr3;
 }
 
-router.get('/', async (req, res) => {
-});
+/*router.get('/', async (req, res) => {
+});*/
 
-router.get('/image', async (req, res) => {
+router.get('/', async (req, res) => {
     await new Pageres({ format: 'png', delay: 2, filename: 'oilprice', launchOptions: {executablePath: await chromium.executablePath, args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'] } })
         .src('https://boyphongsakorn.github.io/thaioilpriceapi/', ['1000x1000'])
         .dest(__dirname)
