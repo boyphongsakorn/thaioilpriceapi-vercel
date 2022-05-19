@@ -83,93 +83,93 @@ function sparray(wow) {
 
 router.get('/', async (req, res) => {
     let data = await getData();
-        let newdata = ["","","","","","","","","",""];
+    let newdata = ["", "", "", "", "", "", "", "", "", ""];
 
-        await fetch('https://www.bangchak.co.th/api/oilprice')
-            .then(res => res.text())
-            .then(body => {
-                const $ = cheerio.load(body);
+    await fetch('https://www.bangchak.co.th/api/oilprice')
+        .then(res => res.text())
+        .then(body => {
+            const $ = cheerio.load(body);
 
-                let arr = $('update_date').text().split('/');
+            let arr = $('update_date').text().split('/');
 
-                let year = parseInt(arr[2].substring(0, 4))-543;
+            let year = parseInt(arr[2].substring(0, 4)) - 543;
 
-                let todaydate = new Date(arr[1] + '/' + arr[0] + '/' + year.toString());
+            let todaydate = new Date(arr[1] + '/' + arr[0] + '/' + year.toString());
 
-                console.log(arr);
-                console.log(todaydate);
-                //console.log(arr[0])
-                //console.log(arr[1])
-                //console.log(arr[2])
+            console.log(arr);
+            console.log(todaydate);
+            //console.log(arr[0])
+            //console.log(arr[1])
+            //console.log(arr[2])
 
-                //push date/month/year to newdata[0]
-                let date = new Date();
+            //push date/month/year to newdata[0]
+            let date = new Date();
 
-                //if todaydate is yesterday
-                if (date.getDate()-1 == todaydate.getDate() && date.getMonth() == todaydate.getMonth() && date.getFullYear() == todaydate.getFullYear()) {
-                    console.log('yesterday');
-                    newdata[0] = (date.getDate()).toString().padStart(2, '0') + '/' + (date.getMonth() + 1).toString().padStart(2, '0') + '/' + (date.getFullYear() + 543);
-                }else{
-                    newdata[0] = (date.getDate()+1).toString().padStart(2, '0') + '/' + (date.getMonth() + 1).toString().padStart(2, '0') + '/' + (date.getFullYear() + 543);
-                }
-
-                newdata[1] = $('item').eq(0).find('tomorrow').text();
-                newdata[2] = $('item').eq(1).find('tomorrow').text();
-                newdata[3] = $('item').eq(2).find('tomorrow').text();
-                newdata[4] = $('item').eq(3).find('tomorrow').text();
-                newdata[5] = $('item').eq(4).find('tomorrow').text();
-                newdata[6] = $('item').eq(5).find('tomorrow').text();
-                newdata[7] = $('item').eq(6).find('tomorrow').text();
-                newdata[8] = $('item').eq(7).find('tomorrow').text();
-                newdata[9] = '-';
-                
-                //log every item tag
-
-                /*$('item').each(function(i, elem) {
-                    console.log($(this).find('type').text());
-                    console.log($(this).find('today').text());
-                    console.log($(this).find('tomorrow').text());
-                    console.log($(this).find('yesterday').text());
-                });*/
-            });
-
-        console.log(newdata);
-
-        //get count of difference between newdata and data[0]
-        let count = 0;
-        for (let i = 0; i < newdata.length; i++) {
-            if (newdata[i] !== data[0][i]) {
-                count++;
+            //if todaydate is yesterday
+            if (date.getDate() - 1 == todaydate.getDate() && date.getMonth() == todaydate.getMonth() && date.getFullYear() == todaydate.getFullYear()) {
+                console.log('yesterday');
+                newdata[0] = (date.getDate()).toString().padStart(2, '0') + '/' + (date.getMonth() + 1).toString().padStart(2, '0') + '/' + (date.getFullYear() + 543);
+            } else {
+                newdata[0] = (date.getDate() + 1).toString().padStart(2, '0') + '/' + (date.getMonth() + 1).toString().padStart(2, '0') + '/' + (date.getFullYear() + 543);
             }
+
+            newdata[1] = $('item').eq(0).find('tomorrow').text();
+            newdata[2] = $('item').eq(1).find('tomorrow').text();
+            newdata[3] = $('item').eq(2).find('tomorrow').text();
+            newdata[4] = $('item').eq(3).find('tomorrow').text();
+            newdata[5] = $('item').eq(4).find('tomorrow').text();
+            newdata[6] = $('item').eq(5).find('tomorrow').text();
+            newdata[7] = $('item').eq(6).find('tomorrow').text();
+            newdata[8] = $('item').eq(7).find('tomorrow').text();
+            newdata[9] = '-';
+
+            //log every item tag
+
+            /*$('item').each(function(i, elem) {
+                console.log($(this).find('type').text());
+                console.log($(this).find('today').text());
+                console.log($(this).find('tomorrow').text());
+                console.log($(this).find('yesterday').text());
+            });*/
+        });
+
+    console.log(newdata);
+
+    //get count of difference between newdata and data[0]
+    let count = 0;
+    for (let i = 0; i < newdata.length; i++) {
+        if (newdata[i] !== data[0][i]) {
+            count++;
         }
-        console.log(count);
+    }
+    console.log(count);
 
-        //if count > 1, then set data[1] = data[0] and set data[0] = newdata
-        if (count > 1) {
-            data[1] = data[0];
-            data[0] = newdata;
-            //subtract data[1] from data[0] and set to data[2]
-            data[2] = data[0].map((e, i) => e - data[1][i]);
-            //format number to 2 decimal
-            data[2] = data[2].map(e => e.toFixed(2));
+    //if count > 1, then set data[1] = data[0] and set data[0] = newdata
+    if (count > 1) {
+        data[1] = data[0];
+        data[0] = newdata;
+        //subtract data[1] from data[0] and set to data[2]
+        data[2] = data[0].map((e, i) => e - data[1][i]);
+        //format number to 2 decimal
+        data[2] = data[2].map(e => e.toFixed(2));
 
-            var date1 = new Date(data[0][0].substr(3, 2) + '/' + data[0][0].substr(0, 2) + '/' + (parseInt(data[0][0].substr(6, 4)) - 543));
-            var date2 = new Date(data[1][0].substr(3, 2) + '/' + data[1][0].substr(0, 2) + '/' + (parseInt(data[1][0].substr(6, 4)) - 543));
-            console.log(date1);
-            console.log(date2);
+        var date1 = new Date(data[0][0].substr(3, 2) + '/' + data[0][0].substr(0, 2) + '/' + (parseInt(data[0][0].substr(6, 4)) - 543));
+        var date2 = new Date(data[1][0].substr(3, 2) + '/' + data[1][0].substr(0, 2) + '/' + (parseInt(data[1][0].substr(6, 4)) - 543));
+        console.log(date1);
+        console.log(date2);
 
-            var difftime = Math.abs(date2.getTime() - date1.getTime());
-            var diffdays = Math.ceil(difftime / (1000 * 3600 * 24));
+        var difftime = Math.abs(date2.getTime() - date1.getTime());
+        var diffdays = Math.ceil(difftime / (1000 * 3600 * 24));
 
-            data[2][0] = diffdays + ' วัน';
+        data[2][0] = diffdays + ' วัน';
 
-            //remove last element of data[2]
-            data[2].pop();
-        }
+        //remove last element of data[2]
+        data[2].pop();
+    }
 
-        res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
-        //res.write(JSON.stringify(data));
-        res.end(JSON.stringify(data));
+    res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+    //res.write(JSON.stringify(data));
+    res.end(JSON.stringify(data));
 });
 
 /*router.get('/image', async (req, res) => {
