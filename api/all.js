@@ -7,8 +7,8 @@ var fs = require('fs');
 //const Pageres = require('pageres');
 const { redirect } = require("express/lib/response");
 //const { parse } = require('querystring');
-const chromium = require('chrome-aws-lambda');
-const puppeteer = require('puppeteer-core');
+//const chromium = require('chrome-aws-lambda');
+//const puppeteer = require('puppeteer-core');
 
 process.env.TZ = 'Asia/bangkok';
 
