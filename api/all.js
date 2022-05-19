@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const cheerio = require('cheerio');
+const { redirect } = require("express/lib/response");
 
 process.env.TZ = 'Asia/bangkok';
 
