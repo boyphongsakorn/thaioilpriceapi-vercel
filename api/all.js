@@ -2,12 +2,6 @@ const express = require("express");
 const router = express.Router();
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const cheerio = require('cheerio');
-//var http = require('http');
-var fs = require('fs');
-const Pageres = require('pageres');
-const { redirect } = require("express/lib/response");
-//const { parse } = require('querystring');
-const chromium = require('chrome-aws-lambda');
 
 process.env.TZ = 'Asia/bangkok';
 
@@ -170,32 +164,6 @@ router.get('/', async (req, res) => {
         res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
         //res.write(JSON.stringify(data));
         res.end(JSON.stringify(data));
-});
-
-router.get('/image', async (req, res) => {
-
-    const browser = await chromium.puppeteer.launch({
-        args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
-        defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath,
-        headless: true,
-        ignoreHTTPSErrors: true,
-    });
-
-    process.env.PUPPETEER_EXECUTABLE_PATH = await chromium.executablePath;
-
-    await new Pageres({ format: 'png', delay: 2, filename: 'oilprice', launchOptions: {executablePath: await chromium.executablePath, args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'] } })
-        .src('https://boyphongsakorn.github.io/thaioilpriceapi/', ['1000x1000'])
-        .dest(__dirname)
-        .run();
-
-    console.log('Finished generating screenshots!');
-
-    res.writeHead(200, { 'Content-Type': 'image/png' });
-    fs.readFile(__dirname + '/oilprice.png', function (err, data) {
-        if (err) throw err;
-        res.end(data);
-    });
 });
 
 module.exports = router;
