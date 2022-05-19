@@ -172,7 +172,7 @@ router.get('/', async (req, res) => {
         res.end(JSON.stringify(data));
 });
 
-router.get('/image', async (req, res) => {
+/*router.get('/image', async (req, res) => {
 
     const browser = await chromium.puppeteer.launch({
         args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
@@ -196,6 +196,6 @@ router.get('/image', async (req, res) => {
         if (err) throw err;
         res.end(data);
     });
-});
+});*/
 
 module.exports = router;
