@@ -7,7 +7,8 @@ var fs = require('fs');
 const Pageres = require('pageres');
 const { redirect } = require("express/lib/response");
 //const { parse } = require('querystring');
-const chromium = require('chrome-aws-lambda');
+const chrome = require('chrome-aws-lambda');
+const puppeteer = require('puppeteer-core');
 
 process.env.TZ = 'Asia/bangkok';
 
@@ -188,9 +189,9 @@ router.get('/', async (req, res) => {
     res.end(JSON.stringify(data));
 });
 
-/*router.get('/image', async (req, res) => {
+router.get('/image', async (req, res) => {
 
-    const browser = await chromium.puppeteer.launch({
+    /*const browser = await chromium.puppeteer.launch({
         args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
         defaultViewport: chromium.defaultViewport,
         executablePath: await chromium.executablePath,
@@ -211,7 +212,28 @@ router.get('/', async (req, res) => {
     fs.readFile(__dirname + '/oilprice.png', function (err, data) {
         if (err) throw err;
         res.end(data);
+    });*/
+
+    const browser = await puppeteer.launch({
+        args: chrome.args,
+        executablePath: await chrome.executablePath,
+        headless: chrome.headless,
+        defaultViewport: {
+            width: 1000,
+            height: 1000
+        }
     });
-});*/
+
+    const page = await browser.newPage();
+    await page.goto('https://boyphongsakorn.github.io/thaioilpriceapi/');
+    const file = await page.screenshot({ type: 'png', path: 'oilprice.png' });
+    await browser.close();
+
+    res.writeHead(200, { 'Content-Type': 'image/png' });
+    fs.readFile(__dirname + '/oilprice.png', function (err, data) {
+        if (err) throw err;
+        res.end(data);
+    });
+});
 
 module.exports = router;
