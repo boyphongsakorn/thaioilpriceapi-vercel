@@ -20,13 +20,13 @@ async function getData() {
     const $ = cheerio.load(body);
 
     //console first tr inside tbody
-    const tr = $('tbody tr').first();
+    let tr = $('tbody tr').first();
     //console.log(tr.text());
 
     //console.log(sparray(tr.text()));
 
     //console second tr inside tbody
-    const tr2 = $('tbody tr').eq(1);
+    let tr2 = $('tbody tr').eq(1);
     //console.log(tr2.text());
 
     //console.log(sparray(tr2.text()));
