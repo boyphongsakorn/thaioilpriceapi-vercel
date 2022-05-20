@@ -22,7 +22,7 @@
     "cheerio": "^1.0.0-rc.10",
     "express": "^4.18.1",
     "node-fetch": "^3.2.4",
-    "chrome-aws-lambda": "5.2.1",
-    "puppeteer-core": "5.2.1"
+    "chrome-aws-lambda": "10.1.0",
+    "puppeteer-core": "10.1.0"
   }
 }
