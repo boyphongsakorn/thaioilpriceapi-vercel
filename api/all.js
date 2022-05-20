@@ -191,14 +191,13 @@ router.get('/', async (req, res) => {
 
 router.get('/image', async (req, res) => {
 
-    const browser = await chromium.puppeteer.launch({
-        args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
-        ignoreDefaultArgs: ['--disable-extensions'],
+    let browser = await chromium.puppeteer.launch({
+        args: chromium.args,
         defaultViewport: chromium.defaultViewport,
-        executablePath: '/usr/bin/google-chrome',
-        headless: true,
+        executablePath: await chromium.executablePath,
+        headless: chromium.headless,
         ignoreHTTPSErrors: true,
-      })
+      });
 
     /*const browser = await chrome.puppeteer.launch({
         args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
