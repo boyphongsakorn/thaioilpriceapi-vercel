@@ -191,7 +191,7 @@ router.get('/', async (req, res) => {
 
 router.get('/image', async (req, res) => {
 
-    const browser = await chrome.puppeteer.launch({
+    /*const browser = await chrome.puppeteer.launch({
         args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
         defaultViewport: {
             width: 1000,
@@ -202,7 +202,7 @@ router.get('/image', async (req, res) => {
         ignoreHTTPSErrors: true,
     });
 
-    /*process.env.PUPPETEER_EXECUTABLE_PATH = await chromium.executablePath;
+    process.env.PUPPETEER_EXECUTABLE_PATH = await chromium.executablePath;
 
     await new Pageres({ format: 'png', delay: 2, filename: 'oilprice', launchOptions: {executablePath: await chromium.executablePath, args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'] } })
         .src('https://boyphongsakorn.github.io/thaioilpriceapi/', ['1000x1000'])
@@ -217,7 +217,7 @@ router.get('/image', async (req, res) => {
         res.end(data);
     });*/
 
-    /*const browser = await puppeteer.launch({
+    const browser = await puppeteer.launch({
         args: chrome.args,
         executablePath: await chrome.executablePath,
         headless: chrome.headless,
@@ -225,7 +225,7 @@ router.get('/image', async (req, res) => {
             width: 1000,
             height: 1000
         }
-    });*/
+    });
 
     const page = await browser.newPage();
     await page.goto('https://boyphongsakorn.github.io/thaioilpriceapi/');
