@@ -30,6 +30,22 @@ async function getData() {
 
     //console.log(sparray(tr2.text()));
 
+    let count = 0;
+    for (let i = 0; i < sparray(tr.text()).length; i++) {
+        if (sparray(tr.text())[i] != sparray(tr2.text())[i]) {
+            count++;
+        }
+    }
+    console.log("======")
+    console.log(count);
+    console.log("======")
+
+    //if count = 1, tr = tr2 and tr2 = $('tbody tr').eq(2)
+    if (count == 1) {
+        tr = tr2;
+        tr2 = $('tbody tr').eq(2);
+    }
+
     //add sparray tr and tr2 to array
     const arr = [sparray(tr.text()), sparray(tr2.text())];
     //console.log(arr);
