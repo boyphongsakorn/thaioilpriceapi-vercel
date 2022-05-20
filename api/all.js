@@ -4,7 +4,7 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
 const cheerio = require('cheerio');
 //var http = require('http');
 var fs = require('fs');
-const Pageres = require('pageres');
+//const Pageres = require('pageres');
 const { redirect } = require("express/lib/response");
 //const { parse } = require('querystring');
 const chrome = require('chrome-aws-lambda');
