@@ -198,4 +198,6 @@ router.get('/', async (req, res) => {
     });
 });*/
 
+console.log('test');
+
 module.exports = router;
