@@ -195,7 +195,7 @@ router.get('/image', async (req, res) => {
         args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
         ignoreDefaultArgs: ['--disable-extensions'],
         defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath,
+        executablePath: '/usr/bin/google-chrome',
         headless: true,
         ignoreHTTPSErrors: true,
       })
