@@ -8,6 +8,7 @@ var fs = require('fs');
 const { redirect } = require("express/lib/response");
 //const { parse } = require('querystring');
 const chromium = require('chrome-aws-lambda');
+const playwright = require('playwright-core');
 //const puppeteer = require('puppeteer-core');
 
 process.env.TZ = 'Asia/bangkok';
