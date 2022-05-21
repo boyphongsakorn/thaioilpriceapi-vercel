@@ -192,70 +192,7 @@ router.get('/', async (req, res) => {
 
 router.get('/image', async (req, res) => {
 
-    /*let browser = await chromium.puppeteer.launch({
-        args: chromium.args,
-        defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath,
-        headless: chromium.headless,
-        ignoreHTTPSErrors: true,
-      });
-
-    /*const browser = await chrome.puppeteer.launch({
-        args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
-        defaultViewport: {
-            width: 1000,
-            height: 1000
-        },
-        executablePath: await chromium.executablePath,
-        headless: true,
-        ignoreHTTPSErrors: true,
-    });
-
-    process.env.PUPPETEER_EXECUTABLE_PATH = await chromium.executablePath;
-
-    await new Pageres({ format: 'png', delay: 2, filename: 'oilprice', launchOptions: {executablePath: await chromium.executablePath, args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-first-run', '--disable-extensions'] } })
-        .src('https://boyphongsakorn.github.io/thaioilpriceapi/', ['1000x1000'])
-        .dest(__dirname)
-        .run();
-
-    console.log('Finished generating screenshots!');
-
-    res.writeHead(200, { 'Content-Type': 'image/png' });
-    fs.readFile(__dirname + '/oilprice.png', function (err, data) {
-        if (err) throw err;
-        res.end(data);
-    });*/
-
-    /*const browser = await puppeteer.launch({
-        args: chrome.args,
-        executablePath: await chrome.executablePath,
-        headless: chrome.headless,
-        defaultViewport: {
-            width: 1000,
-            height: 1000
-        }
-    });*/
-
-    /*const page = await browser.newPage();
-    await page.goto('https://boyphongsakorn.github.io/thaioilpriceapi/');
-    const file = await page.screenshot({ type: 'png', path: 'oilprice.png' });
-    await browser.close();
-
-    res.writeHead(200, { 'Content-Type': 'image/png' });
-    fs.readFile(__dirname + '/oilprice.png', function (err, data) {
-        if (err) throw err;
-        res.end(data);
-    });*/
-
-    const browser = await playwright.chromium.launch({
-        args: chromium.args,
-        executablePath: await chromium.executablePath,
-        headless: chromium.headless,
-      });
     
-      // ...
-    
-      await browser.close();
 });
 
 module.exports = router;
