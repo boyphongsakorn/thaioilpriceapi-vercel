@@ -191,7 +191,7 @@ router.get('/', async (req, res) => {
 
 router.get('/image', async (req, res) => {
 
-    let browser = await chromium.puppeteer.launch({
+    /*let browser = await chromium.puppeteer.launch({
         args: chromium.args,
         defaultViewport: chromium.defaultViewport,
         executablePath: await chromium.executablePath,
@@ -235,7 +235,7 @@ router.get('/image', async (req, res) => {
         }
     });*/
 
-    const page = await browser.newPage();
+    /*const page = await browser.newPage();
     await page.goto('https://boyphongsakorn.github.io/thaioilpriceapi/');
     const file = await page.screenshot({ type: 'png', path: 'oilprice.png' });
     await browser.close();
@@ -244,7 +244,17 @@ router.get('/image', async (req, res) => {
     fs.readFile(__dirname + '/oilprice.png', function (err, data) {
         if (err) throw err;
         res.end(data);
-    });
+    });*/
+
+    const browser = await playwright.chromium.launch({
+        args: chromium.args,
+        executablePath: await chromium.executablePath,
+        headless: chromium.headless,
+      });
+    
+      // ...
+    
+      await browser.close();
 });
 
 module.exports = router;
