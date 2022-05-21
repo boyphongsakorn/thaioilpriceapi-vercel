@@ -191,7 +191,15 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/image', async (req, res) => {
-
+    //download image from https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000
+    await fetch('https://screenshot-xi.vercel.app/api?url=https://boyphongsakorn.github.io/thaioilpriceapi&width=1000&height=1000')
+        .then(res => res.buffer())
+        .then(body => {
+            //console.log(body);
+            res.writeHead(200, { 'Content-Type': 'image/png', 'Access-Control-Allow-Origin': '*'});
+            res.write(body);
+            res.end();
+        });
     
 });
 
