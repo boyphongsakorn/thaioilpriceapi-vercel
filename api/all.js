@@ -128,7 +128,9 @@ router.get('/', async (req, res) => {
                 console.log('yesterday');
                 newdata[0] = (date.getDate()).toString().padStart(2, '0') + '/' + (date.getMonth() + 1).toString().padStart(2, '0') + '/' + (date.getFullYear() + 543);
             } else {
-                newdata[0] = (date.getDate() + 1).toString().padStart(2, '0') + '/' + (date.getMonth() + 1).toString().padStart(2, '0') + '/' + (date.getFullYear() + 543);
+                //tomorrowdate = date + 1 day
+                let tomorrowdate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
+                newdata[0] = (tomorrowdate.getDate() + 1).toString().padStart(2, '0') + '/' + (tomorrowdate.getMonth() + 1).toString().padStart(2, '0') + '/' + (tomorrowdate.getFullYear() + 543);
             }
 
             newdata[1] = $('item').eq(0).find('tomorrow').text();
