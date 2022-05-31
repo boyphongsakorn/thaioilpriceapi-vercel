@@ -130,7 +130,7 @@ router.get('/', async (req, res) => {
             } else {
                 //tomorrowdate = date + 1 day
                 let tomorrowdate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
-                newdata[0] = (tomorrowdate.getDate() + 1).toString().padStart(2, '0') + '/' + (tomorrowdate.getMonth() + 1).toString().padStart(2, '0') + '/' + (tomorrowdate.getFullYear() + 543);
+                newdata[0] = (tomorrowdate.getDate()).toString().padStart(2, '0') + '/' + (tomorrowdate.getMonth() + 1).toString().padStart(2, '0') + '/' + (tomorrowdate.getFullYear() + 543);
             }
 
             newdata[1] = $('item').eq(0).find('tomorrow').text();
