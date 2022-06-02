@@ -205,4 +205,20 @@ router.get('/image', async (req, res) => {
     
 });
 
+router.get('/getjson', async (req, res) => {
+    let state
+    if(req.query.state){
+        state = '?state='+req.query.state;
+    }
+    await fetch('https://publicapi.traffy.in.th/share/teamchadchart/geojson'+state)
+        .then(res => res.json())
+        .then(body => {
+            const unique = (value, index, self) => self.indexOf(value) === index;
+            body.features = body.features.filter(unique);
+            res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+            res.write(JSON.stringify(body));
+            res.end();
+        });
+});
+
 module.exports = router;
