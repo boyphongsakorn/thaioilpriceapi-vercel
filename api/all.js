@@ -103,7 +103,7 @@ router.get('/', async (req, res) => {
     let data = await getData();
     let newdata = ["", "", "", "", "", "", "", "", "", ""];
 
-    await fetch('https://www.bangchak.co.th/api/oilprice')
+    await fetch('https://crmmobile.bangchak.co.th/webservice/oil_price.aspx')
         .then(res => res.text())
         .then(body => {
             const $ = cheerio.load(body);
