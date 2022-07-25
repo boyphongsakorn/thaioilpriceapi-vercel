@@ -108,15 +108,15 @@ router.get('/', async (req, res) => {
     //if tmrprce is 4xx or 5xx
     if (tmrprice.status >= 400 && tmrprice.status <= 599) {
         //if have tmrprice.txt
-        if (fs.existsSync('tmrprice.txt')) {
+        if (fs.existsSync('/tmp/tmrprice.txt')) {
             //body = fs.readFileSync('tmrprice.txt', 'utf8');
-            body = fs.readFileSync('tmrprice.txt', 'utf8');
+            body = fs.readFileSync('/tmp/tmrprice.txt', 'utf8');
         } else {
             newdata[0] = "ไม่สามารถติดต่อกับระบบได้";
         }
     } else {
         //write body to tmrprice.txt
-        fs.writeFileSync('tmrprice.txt', body);
+        fs.writeFileSync('/tmp/tmrprice.txt', body);
     }
 
     /*await fetch('https://crmmobile.bangchak.co.th/webservice/oil_price.aspx')
